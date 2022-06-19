@@ -1,9 +1,10 @@
+
 #include<WiFi.h>
 
 const char* ssid     = "ssid";
 const char* password = "password";
 
-const char* HOST = "俺のPCのIP";
+const char* HOST = "俺のPCのIPアドレス";
 const String POST_URL = "/postData";
 const String GET_URL = "/getData";
 

@@ -3,13 +3,13 @@
 const char* ssid     = "ssid";
 const char* password = "password";
 
-const char* HOST = "hooks.slack.com";
-const String URL = "/services/hogehoge";
+const char* HOST = "discord.com";
+const String URL = "/api/webhooks/hogehoge";
 
 void Send(String mes) {
   WiFiClientSecure client;
   client.setInsecure();
-  String cont = "{\"text\":\"" + mes + "\"}";
+  String cont = "{\"content\":\"" + mes + "\"}";
   if (!client.connect(HOST, 443)) {
     Serial.println("Not connect");
     return;
@@ -26,6 +26,8 @@ void Send(String mes) {
   delay(100);
 }
 void setup() {
+  pinMode(4,INPUT);
+  
   WiFi.begin(ssid, password);
   Serial.begin(115200);
   while (WiFi.status() != WL_CONNECTED) {
@@ -36,9 +38,7 @@ void setup() {
 }
 
 void loop() {
-  if (Serial.available() > 0) {
-    String c = Serial.readStringUntil('\n');
-    c.replace("\r", "");
-    Send(c);
+  if (digitalRead(4)==HIGH) {
+    Send("ボタンが押されました！");
   }
 }
