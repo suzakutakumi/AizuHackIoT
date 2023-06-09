@@ -25,8 +25,6 @@ void setup() {
 void loop() {
   HTTPClient http;  //HTTPリクエスト用の変数
   if (http.begin(URL)) {
-    http.addHeader("Content-Type", "application/json");
-
     int httpCode = http.GET();  //ここでHTTPリクエストを送っている
     if (httpCode > 0) {
       Serial.printf("ステータスコード: %d\n", httpCode);
