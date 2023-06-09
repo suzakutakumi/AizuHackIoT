@@ -1,21 +1,29 @@
 <html>
-    <body>
-        <p id="main">
-        </p>
-        <script>
-            setInterval(()=>{
-            fetch("/getData").then(
-                (res)=>{
-                    return(res.text())
-                }
-            ).then(
-                (text)=>{
-                    let txt=text.replace(/\r?\n/g,'<br>')
-                    console.log(txt)
-                    document.getElementById("main").innerHTML=txt
-                }
-            )
-            },1000)
-        </script>
-    </body>
+
+<body>
+    機器のid:
+    <input type="text" id="id" />
+    <br>
+
+    LEDの点灯:
+    <input type="checkbox" id="check_light" />
+    <br>
+
+    <input type="submit" onclick="send_data()"/>
+    <script>
+        const send_data=() => {
+            const id=document.getElementById("id").value
+            const check=document.getElementById("check_light").checked
+
+            fetch("/data", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({id,check})
+            })
+        }
+    </script>
+</body>
+
 </html>
